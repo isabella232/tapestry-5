@@ -18,6 +18,7 @@ import org.apache.tapestry5.annotations.HeartbeatDeferred;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.SupportsInformalParameters;
 import org.apache.tapestry5.dom.Element;
+import org.apache.tapestry5.http.TapestryHttpSymbolConstants;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.annotations.Symbol;
 import org.apache.tapestry5.ioc.internal.util.InternalUtils;
@@ -66,7 +67,7 @@ public class Label
     private JavaScriptSupport javaScriptSupport;
 
     @Inject
-    @Symbol(SymbolConstants.PRODUCTION_MODE)
+    @Symbol(TapestryHttpSymbolConstants.PRODUCTION_MODE)
     private boolean productionMode;
 
     /**
@@ -118,9 +119,13 @@ public class Label
         labelElement.attribute("id", id);
         labelElement.forceAttributes("for", fieldId);
         
-        Element input = labelElement.getDocument().getElementById(field.getClientId());
-        if (input != null) {
-            input.attribute("aria-labelledby", id);
+        if (fieldId != null)
+        {
+            Element input = labelElement.getDocument().getElementById(field.getClientId());
+            if (input != null) 
+            {
+                input.attribute("aria-labelledby", id);
+            }
         }
         
         decorator.insideLabel(field, labelElement);

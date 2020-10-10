@@ -19,6 +19,7 @@ import org.apache.tapestry5.beanmodel.internal.InternalPropertyConduit;
 import org.apache.tapestry5.commons.Messages;
 import org.apache.tapestry5.commons.Resource;
 import org.apache.tapestry5.commons.util.CollectionFactory;
+import org.apache.tapestry5.commons.util.CommonsUtils;
 import org.apache.tapestry5.func.Mapper;
 import org.apache.tapestry5.http.Link;
 import org.apache.tapestry5.ioc.Orderable;
@@ -46,13 +47,7 @@ import java.util.regex.Pattern;
 @SuppressWarnings("all")
 public class TapestryInternalUtils
 {
-    private static final String SLASH = "/";
-
-    private static final Pattern SLASH_PATTERN = Pattern.compile(SLASH);
-
     private static final Pattern NON_WORD_PATTERN = Pattern.compile("[^\\w]");
-
-    private static final Pattern COMMA_PATTERN = Pattern.compile("\\s*,\\s*");
 
     private static final int BUFFER_SIZE = 5000;
 
@@ -335,7 +330,7 @@ public class TapestryInternalUtils
      */
     public static String[] splitPath(String path)
     {
-        return SLASH_PATTERN.split(path);
+        return CommonsUtils.splitPath(path);
     }
 
     /**
@@ -345,10 +340,7 @@ public class TapestryInternalUtils
      */
     public static String[] splitAtCommas(String value)
     {
-        if (InternalUtils.isBlank(value))
-            return InternalConstants.EMPTY_STRING_ARRAY;
-
-        return COMMA_PATTERN.split(value.trim());
+        return CommonsUtils.splitAtCommas(value);
     }
 
     /**

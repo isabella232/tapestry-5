@@ -28,6 +28,7 @@ import org.apache.tapestry5.commons.Location;
 import org.apache.tapestry5.commons.Messages;
 import org.apache.tapestry5.commons.internal.NullAnnotationProvider;
 import org.apache.tapestry5.commons.util.CollectionFactory;
+import org.apache.tapestry5.commons.util.CommonsUtils;
 
 /**
  * Utility methods class for the Commons package.
@@ -314,15 +315,6 @@ public class InternalCommonsUtils {
     }
 
     /**
-     * Returns true if the input is null, or is a zero length string (excluding leading/trailing whitespace).
-     */
-    
-    public static boolean isBlank(String input)
-    {
-        return input == null || input.length() == 0 || input.trim().length() == 0;
-    }
-
-    /**
      * Capitalizes a string, converting the first character to uppercase.
      */
     public static String capitalize(String input)
@@ -335,7 +327,7 @@ public class InternalCommonsUtils {
 
     public static boolean isNonBlank(String input)
     {
-        return !isBlank(input);
+        return !CommonsUtils.isBlank(input);
     }
 
     /**

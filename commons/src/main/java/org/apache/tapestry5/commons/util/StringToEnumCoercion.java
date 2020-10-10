@@ -14,7 +14,6 @@ package org.apache.tapestry5.commons.util;
 
 import java.util.Map;
 
-import org.apache.tapestry5.commons.internal.util.InternalCommonsUtils;
 import org.apache.tapestry5.commons.services.Coercion;
 
 /**
@@ -50,7 +49,7 @@ public final class StringToEnumCoercion<T extends Enum> implements Coercion<Stri
     @Override
     public T coerce(String input)
     {
-        if (InternalCommonsUtils.isBlank(input))
+        if (CommonsUtils.isBlank(input))
             return null;
 
         T result = stringToEnum.get(input);

@@ -1475,16 +1475,6 @@ public final class TapestryModule
     }
 
     /**
-     * Builds a shadow of the RequestGlobals.request property. Note again that
-     * the shadow can be an ordinary singleton,
-     * even though RequestGlobals is perthread.
-     */
-    public Request buildRequest()
-    {
-        return shadowBuilder.build(requestGlobals, "request", Request.class);
-    }
-
-    /**
      * The MarkupRenderer service is used to render a full page as markup.
      * Supports an ordered configuration of {@link org.apache.tapestry5.services.MarkupRendererFilter}s.
      */

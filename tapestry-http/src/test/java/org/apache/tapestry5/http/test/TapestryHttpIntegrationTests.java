@@ -22,7 +22,8 @@ import org.testng.annotations.Test;
 public class TapestryHttpIntegrationTests extends SeleniumTestCase {
 
     @Test
-    public void testSimpleDispatcher() throws Exception {
+    public void testSimpleDispatcher() throws Exception 
+    {
         open("/hello");
         assertEquals("Return to base URL", getText("//a"));
         clickAndWait("//a");

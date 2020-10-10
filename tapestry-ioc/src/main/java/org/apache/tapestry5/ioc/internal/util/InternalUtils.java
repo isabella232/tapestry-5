@@ -19,6 +19,7 @@ import org.apache.tapestry5.commons.internal.util.InternalCommonsUtils;
 import org.apache.tapestry5.commons.services.Coercion;
 import org.apache.tapestry5.commons.services.PlasticProxyFactory;
 import org.apache.tapestry5.commons.util.CollectionFactory;
+import org.apache.tapestry5.commons.util.CommonsUtils;
 import org.apache.tapestry5.commons.util.ExceptionUtils;
 import org.apache.tapestry5.func.F;
 import org.apache.tapestry5.func.Mapper;
@@ -440,7 +441,7 @@ public class InternalUtils
 
     public static boolean isBlank(String input)
     {
-        return InternalCommonsUtils.isBlank(input);
+        return CommonsUtils.isBlank(input);
     }
 
     /**

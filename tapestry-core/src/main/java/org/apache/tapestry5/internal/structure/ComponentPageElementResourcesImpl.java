@@ -17,10 +17,10 @@ package org.apache.tapestry5.internal.structure;
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.commons.*;
 import org.apache.tapestry5.commons.services.TypeCoercer;
+import org.apache.tapestry5.commons.util.CommonsUtils;
 import org.apache.tapestry5.http.Link;
 import org.apache.tapestry5.http.services.Request;
 import org.apache.tapestry5.http.services.RequestGlobals;
-import org.apache.tapestry5.internal.InternalConstants;
 import org.apache.tapestry5.internal.services.ComponentClassCache;
 import org.apache.tapestry5.internal.services.LinkSource;
 import org.apache.tapestry5.internal.services.RequestPageCache;
@@ -150,7 +150,7 @@ public class ComponentPageElementResourcesImpl implements ComponentPageElementRe
 
     private Object[] defaulted(Object[] context)
     {
-        return context == null ? InternalConstants.EMPTY_STRING_ARRAY : context;
+        return context == null ? CommonsUtils.EMPTY_STRING_ARRAY : context;
     }
 
     public <T> T invoke(String description, Invokable<T> operation)

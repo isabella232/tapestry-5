@@ -18,12 +18,12 @@ import org.apache.tapestry5.commons.Location;
 import org.apache.tapestry5.commons.internal.util.TapestryException;
 import org.apache.tapestry5.commons.util.AvailableValues;
 import org.apache.tapestry5.commons.util.CollectionFactory;
+import org.apache.tapestry5.commons.util.CommonsUtils;
 import org.apache.tapestry5.commons.util.UnknownValueException;
 import org.apache.tapestry5.dom.Element;
 import org.apache.tapestry5.http.Link;
 import org.apache.tapestry5.internal.AbstractEventContext;
 import org.apache.tapestry5.internal.InternalComponentResources;
-import org.apache.tapestry5.internal.InternalConstants;
 import org.apache.tapestry5.internal.services.ComponentEventImpl;
 import org.apache.tapestry5.internal.services.Instantiator;
 import org.apache.tapestry5.internal.util.NamedSet;
@@ -687,7 +687,7 @@ public class ComponentPageElementImpl extends BaseLocatable implements Component
         // we don't add anything to components until we page load; instead, we add
         // to the orderers.
         if (order == null)
-            order = InternalConstants.EMPTY_STRING_ARRAY;
+            order = CommonsUtils.EMPTY_STRING_ARRAY;
 
         if (resources.getComponentModel().isMixinAfter())
         {

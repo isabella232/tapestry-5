@@ -32,6 +32,7 @@ import org.apache.tapestry5.http.internal.services.DefaultSessionPersistedObject
 import org.apache.tapestry5.http.internal.services.OptimizedSessionPersistedObjectAnalyzer;
 import org.apache.tapestry5.http.internal.services.RequestGlobalsImpl;
 import org.apache.tapestry5.http.internal.services.RequestImpl;
+import org.apache.tapestry5.http.internal.services.ResponseCompressionAnalyzerImpl;
 import org.apache.tapestry5.http.internal.services.ResponseImpl;
 import org.apache.tapestry5.http.internal.services.TapestrySessionFactory;
 import org.apache.tapestry5.http.internal.services.TapestrySessionFactoryImpl;
@@ -52,7 +53,6 @@ import org.apache.tapestry5.http.services.ResponseCompressionAnalyzer;
 import org.apache.tapestry5.http.services.ServletApplicationInitializer;
 import org.apache.tapestry5.http.services.ServletApplicationInitializerFilter;
 import org.apache.tapestry5.http.services.SessionPersistedObjectAnalyzer;
-import org.apache.tapestry5.internal.services.ResponseCompressionAnalyzerImpl;
 import org.apache.tapestry5.ioc.ServiceBinder;
 import org.apache.tapestry5.ioc.annotations.Autobuild;
 import org.apache.tapestry5.ioc.annotations.Marker;

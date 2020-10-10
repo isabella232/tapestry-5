@@ -13,6 +13,7 @@
 package org.apache.tapestry5.internal;
 
 import org.apache.tapestry5.annotations.PublishEvent;
+import org.apache.tapestry5.commons.util.CommonsUtils;
 import org.apache.tapestry5.commons.util.TimeInterval;
 import org.apache.tapestry5.dom.MarkupModel;
 import org.apache.tapestry5.http.ContentType;
@@ -129,7 +130,10 @@ public final class InternalConstants
 
     public static final long TEN_YEARS = new TimeInterval("10y").milliseconds();
 
-    public static final String[] EMPTY_STRING_ARRAY = new String[0];
+    /**
+     * @deprecated Use {@link CommonsUtils#EMPTY_STRING_ARRAY} instead
+     */
+    public static final String[] EMPTY_STRING_ARRAY = CommonsUtils.EMPTY_STRING_ARRAY;
 
     /**
      * Name of the core {@link JavaScriptStack}, which supplies the basic JavaScript infrastructure

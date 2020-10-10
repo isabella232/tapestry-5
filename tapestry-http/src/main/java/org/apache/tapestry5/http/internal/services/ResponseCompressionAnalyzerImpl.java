@@ -12,15 +12,15 @@
 
 package org.apache.tapestry5.http.internal.services;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.tapestry5.commons.util.CommonsUtils;
 import org.apache.tapestry5.http.ContentType;
 import org.apache.tapestry5.http.TapestryHttpConstants;
 import org.apache.tapestry5.http.TapestryHttpSymbolConstants;
 import org.apache.tapestry5.http.services.CompressionAnalyzer;
 import org.apache.tapestry5.http.services.ResponseCompressionAnalyzer;
-import org.apache.tapestry5.internal.TapestryInternalUtils;
 import org.apache.tapestry5.ioc.annotations.Symbol;
-
-import javax.servlet.http.HttpServletRequest;
 
 public class ResponseCompressionAnalyzerImpl implements ResponseCompressionAnalyzer
 {
@@ -65,7 +65,7 @@ public class ResponseCompressionAnalyzerImpl implements ResponseCompressionAnaly
             return false;
         }
 
-        for (String encoding : TapestryInternalUtils.splitAtCommas(supportedEncodings))
+        for (String encoding : CommonsUtils.splitAtCommas(supportedEncodings))
         {
             if (encoding.equalsIgnoreCase("gzip"))
             {

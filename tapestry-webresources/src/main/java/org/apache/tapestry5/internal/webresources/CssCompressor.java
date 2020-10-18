@@ -9,7 +9,7 @@
  * The copyrights embodied in the content of this file are licensed
  * by Yahoo! Inc. under the BSD (revised) open source license.
  */
-package com.yahoo.platform.yui.compressor;
+package org.apache.tapestry5.internal.webresources;
 
 import java.io.IOException;
 import java.io.Reader;

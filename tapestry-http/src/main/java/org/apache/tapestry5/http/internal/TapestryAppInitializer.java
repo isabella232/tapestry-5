@@ -33,7 +33,7 @@ import org.slf4j.Logger;
 
 /**
  * This class is used to build the {@link Registry}. The Registry contains
- * {@link org.apache.tapestry5.ioc.modules.TapestryIOCModule} and {@link TapestryModule}, any
+ * {@link org.apache.tapestry5.ioc.modules.TapestryIOCModule} and {@link TapestryHttpModule}, any
  * modules identified by {@link #addModules(Class[])} )}, plus the application module.
  *
  * The application module is optional.

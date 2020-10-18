@@ -25,7 +25,7 @@ import org.apache.tapestry5.ioc.annotations.UsesMappedConfiguration;
  * {@linkplain org.apache.tapestry5.ioc.services.StrategyBuilder strategy} based on object type. The service may be
  * injected using the {@link org.apache.tapestry5.ioc.annotations.Primary} marker annotation.
  *
- * @see org.apache.tapestry5.annotations.ImmutableSessionPersistedObject
+ * @see org.apache.tapestry5.http.annotations.ImmutableSessionPersistedObject
  * @see org.apache.tapestry5.http.OptimizedSessionPersistedObject
  * @since 5.1.0.0
  */

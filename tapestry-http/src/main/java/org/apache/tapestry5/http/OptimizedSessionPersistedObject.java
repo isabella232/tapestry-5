@@ -21,8 +21,8 @@ package org.apache.tapestry5.http;
  *
  * This method is accessed concurrently.
  *
- * @see org.apache.tapestry5.annotations.ImmutableSessionPersistedObject
- * @see org.apache.tapestry5.services.SessionPersistedObjectAnalyzer
+ * @see org.apache.tapestry5.http.annotations.ImmutableSessionPersistedObject
+ * @see org.apache.tapestry5.http.services.SessionPersistedObjectAnalyzer
  * @since 5.1.1.0
  */
 public interface OptimizedSessionPersistedObject

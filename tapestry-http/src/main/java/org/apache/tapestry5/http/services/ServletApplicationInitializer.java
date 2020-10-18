@@ -20,7 +20,7 @@ import org.apache.tapestry5.ioc.annotations.UsesOrderedConfiguration;
 
 /**
  * Service interface for initializing a servlet application, as a {@linkplain org.apache.tapestry5.ioc.services.PipelineBuilder
- * pipeline}. The terminator hands off to the {@link org.apache.tapestry5.services.ApplicationInitializer} service.
+ * pipeline}. The terminator hands off to the {@link org.apache.tapestry5.http.services.ApplicationInitializer} service.
  */
 @UsesOrderedConfiguration(ServletApplicationInitializerFilter.class)
 public interface ServletApplicationInitializer

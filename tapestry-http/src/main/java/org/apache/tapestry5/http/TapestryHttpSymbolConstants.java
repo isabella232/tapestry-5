@@ -38,7 +38,7 @@ final public class TapestryHttpSymbolConstants {
      * The secure (https) hostport that application should use when constructing an absolute URL. The default is "0",
      * i.e. use
      * the value from the request.
-     * This is an alias to {@link TapestryHttpSymbolConstnats#HOSTPORT_SECURE}.
+     * This is an alias to {@link TapestryHttpSymbolConstants#HOSTPORT_SECURE}.
      *
      * @since 5.3
      */
@@ -117,7 +117,7 @@ final public class TapestryHttpSymbolConstants {
      * Minimum output stream size, in bytes, before output is compressed using GZIP. Shorter streams are not compressed.
      * Tapestry buffers this amount and switches to a GZIP output stream as needed. The default is "100".
      *
-     * @see SymbolConstants#GZIP_COMPRESSION_ENABLED
+     * @see #GZIP_COMPRESSION_ENABLED
      * @since 5.1.0.0
      */
     public static final String MIN_GZIP_SIZE = "tapestry.min-gzip-size";

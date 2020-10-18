@@ -123,6 +123,7 @@ import org.apache.tapestry5.http.internal.services.RequestImpl;
 import org.apache.tapestry5.http.internal.services.ResponseImpl;
 import org.apache.tapestry5.http.internal.services.TapestrySessionFactory;
 import org.apache.tapestry5.http.internal.services.TapestrySessionFactoryImpl;
+import org.apache.tapestry5.http.modules.TapestryHttpModule;
 import org.apache.tapestry5.http.services.ApplicationGlobals;
 import org.apache.tapestry5.http.services.ApplicationInitializer;
 import org.apache.tapestry5.http.services.ApplicationInitializerFilter;
@@ -396,7 +397,7 @@ import org.slf4j.Logger;
  */
 @Marker(Core.class)
 @ImportModule(
-        {InternalModule.class, AssetsModule.class, PageLoadModule.class, JavaScriptModule.class, CompatibilityModule.class, DashboardModule.class})
+        {InternalModule.class, AssetsModule.class, PageLoadModule.class, JavaScriptModule.class, CompatibilityModule.class, DashboardModule.class, TapestryHttpModule.class})
 public final class TapestryModule
 {
     private final PipelineBuilder pipelineBuilder;

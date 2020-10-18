@@ -1,0 +1,14 @@
+description = "Tool to help migrate source code using Tapestry from one version to another. Initially built for 5.7.0"
+
+dependencies {
+}
+
+test {
+    useJUnit()
+}
+
+/*jar {
+    manifest {
+        attributes 'Tapestry-Module-Classes': 'org.apache.tapestry5.json.modules.JSONModule'
+    }
+}*/

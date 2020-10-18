@@ -40,7 +40,7 @@ public class SymbolConstants
      * Each modes can contribute a list (comma separated) of Module classes to be loaded during startup,
      * the order in which they appear is preserved.
      * The default value is: <code>production</code>.
-     * This is an alias for {@link TapestryHttpSymbolConstants.EXECUTION_MODE}.
+     * This is an alias for {@link TapestryHttpSymbolConstants#EXECUTION_MODE}.
      */
     public static final String EXECUTION_MODE = TapestryHttpSymbolConstants.EXECUTION_MODE;
     /**
@@ -293,7 +293,7 @@ public class SymbolConstants
      * The secure (https) hostport that application should use when constructing an absolute URL. The default is "0",
      * i.e. use
      * the value from the request.
-     * This is an alias to {@link TapestryHttpSymbolConstnats#HOSTPORT_SECURE}.
+     * This is an alias to {@link TapestryHttpSymbolConstants#HOSTPORT_SECURE}.
      *
      * @since 5.3
      */
@@ -321,7 +321,7 @@ public class SymbolConstants
      * The default is {@code true}, to preserve 5.2 behavior. For non-clustered applications (the majority), this value should be
      * overridden to {@code false}. A future release of Tapestry may change the default.
      * 
-     * This is an alias to {@link TapestryHttpSymbolConstants.CLUSTERED_SESSIONS}.
+     * This is an alias to {@link TapestryHttpSymbolConstants#CLUSTERED_SESSIONS}.
      *
      * @since 5.3
      */
@@ -379,7 +379,7 @@ public class SymbolConstants
     /**
      * Identifies the context path of the application, as determined from {@link javax.servlet.ServletContext#getContextPath()}.
      * This is either a blank string or a string that starts with a slash but does not end with one.
-     * This is an alias to {@link TapestryHttpSymbolConstants.CONTEXT_PATH}.
+     * This is an alias to {@link TapestryHttpSymbolConstants#CONTEXT_PATH}.
      *
      * @since 5.4
      */

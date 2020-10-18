@@ -204,7 +204,7 @@ public final class TapestryHttpModule {
     }
 
     /**
-     * Initializes the application, using a pipeline of {@link org.apache.tapestry5.services.ApplicationInitializer}s.
+     * Initializes the application, using a pipeline of {@link org.apache.tapestry5.http.services.ApplicationInitializer}s.
      */
     @Marker(Primary.class)
     public ApplicationInitializer buildApplicationInitializer(Logger logger,

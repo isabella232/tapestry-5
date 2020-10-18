@@ -77,7 +77,7 @@ public class TapestryAppInitializer
      *         logger for output confirmation
      * @param appProvider
      *         provides symbols for the application (normally, from the ServletContext init
-     *         parameters), plus (as of 5.4) the value for symbol {@link SymbolConstants#CONTEXT_PATH}
+     *         parameters), plus (as of 5.4) the value for symbol {@link TapestryHttpSymbolConstants#CONTEXT_PATH}
      * @param appName
      *         the name of the application (i.e., the name of the application servlet)
      * @param executionModes

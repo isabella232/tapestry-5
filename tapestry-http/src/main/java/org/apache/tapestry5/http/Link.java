@@ -67,7 +67,7 @@ public interface Link
 
     /**
      * Adds a parameter value as a value object; the value object is converted to a string via
-     * <a href="http://tapestry.apache.org/current/apidocs/src-html/org/apache/tapestry5/services/ContextPathEncoder.html#line.31>ContextPathEncoder.encodeValue(Object)</a>
+     * <a href="http://tapestry.apache.org/current/apidocs/src-html/org/apache/tapestry5/services/ContextPathEncoder.html#line.31">ContextPathEncoder.encodeValue(Object)</a>
      * from tapestry-core and the result is added via {@link #addParameter(String, String)}.
      * The Link object is returned for further configuration.
      *

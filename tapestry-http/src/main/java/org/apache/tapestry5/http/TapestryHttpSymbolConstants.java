@@ -126,9 +126,9 @@ final public class TapestryHttpSymbolConstants {
      * using a server that handles GZip compression for you, or you don't want to use the extra processing power
      * necessary to GZIP requests, then override this to "false".
      *
-     * @see MIN_GZIP_SIZE
-     * @see org.apache.tapestry5.services.ResponseCompressionAnalyzer
-     * @see org.apache.tapestry5.services.assets.CompressionAnalyzer
+     * @see #MIN_GZIP_SIZE
+     * @see org.apache.tapestry5.http.services.ResponseCompressionAnalyzer
+     * @see org.apache.tapestry5.http.services.CompressionAnalyzer
      * @since 5.1.0.0
      */
     public static final String GZIP_COMPRESSION_ENABLED = "tapestry.gzip-compression-enabled";

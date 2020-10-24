@@ -29,6 +29,7 @@ import org.apache.tapestry5.ioc.Registry;
 import org.apache.tapestry5.ioc.def.ModuleDef;
 import org.apache.tapestry5.ioc.internal.util.InternalUtils;
 import org.apache.tapestry5.ioc.services.SymbolProvider;
+import org.apache.tapestry5.modules.TapestryModule;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
@@ -102,6 +103,7 @@ public class PageTester
         TapestryAppInitializer initializer = new TapestryAppInitializer(LoggerFactory.getLogger(PageTester.class), provider, appName,
                 null);
 
+        initializer.addModules(TapestryModule.class);
         initializer.addModules(PageTesterModule.class);
         initializer.addModules(moduleClasses);
         initializer.addModules(provideExtraModuleDefs());

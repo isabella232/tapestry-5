@@ -182,6 +182,8 @@ public class CoreBehaviorsTests extends App1TestCase
     {
         openLinks("Inject Demo");
 
+        System.out.println(getHtmlSource());
+        
         // is a test for a named @Inject:
         assertTextPresent("<Proxy for Request(org.apache.tapestry5.services.http.Request)>");
 
@@ -204,6 +206,8 @@ public class CoreBehaviorsTests extends App1TestCase
     public void atinjection() throws Exception
     {
         openLinks("@javax.inject.Inject Demo");
+        
+        System.out.println(getHtmlSource());
 
         // is a test for a named @Inject:
         assertTextPresent("<Proxy for Request(org.apache.tapestry5.services.http.Request)>");

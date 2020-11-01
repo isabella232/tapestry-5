@@ -55,5 +55,10 @@ public enum TapestryVersion
     {
         return versionGitHash;
     }
+    
+    public String toString() 
+    {
+        return String.format("Apache Tapestry %s", getNumber());
+    }
 
 }

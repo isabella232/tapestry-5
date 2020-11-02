@@ -21,7 +21,7 @@ import org.apache.tapestry5.versionmigrator.FileRefactorCommitParser;
 
 /**
  * Parses lines like this, in which just the artifact is changed:
- * <code>{tapestry-ioc => tapestry5-annotations}/src/main/java/org/apache/tapestry5/ioc/annotations/Advise.java (100%)</code>. 
+ * <code>{tapestry-ioc =&gt; tapestry5-annotations}/src/main/java/org/apache/tapestry5/ioc/annotations/Advise.java (100%)</code>. 
  */
 public class ArtifactChangeRefactorCommitParser implements FileRefactorCommitParser {
 

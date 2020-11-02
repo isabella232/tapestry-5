@@ -21,7 +21,7 @@ import org.apache.tapestry5.versionmigrator.FileRefactorCommitParser;
 
 /**
  * Parses lines like this, in which just the package is changed:
- * <code>commons/src/main/java/org/apache/tapestry5/{ioc => commons}/Messages.java (98%)</code>. 
+ * <code>commons/src/main/java/org/apache/tapestry5/{ioc =&gt; commons}/Messages.java (98%)</code>. 
  */
 public class PackageChangeRefactorCommitParser implements FileRefactorCommitParser {
 

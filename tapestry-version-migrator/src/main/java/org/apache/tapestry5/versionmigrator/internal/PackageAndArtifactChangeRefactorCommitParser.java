@@ -21,7 +21,7 @@ import org.apache.tapestry5.versionmigrator.FileRefactorCommitParser;
 
 /**
  * Parses lines like this, in which both artifact and package are changed:
- * <code>{tapestry-ioc/src/main/java/org/apache/tapestry5/ioc => commons/src/main/java/org/apache/tapestry5/commons}/ObjectProvider.java</code>. 
+ * <code>{tapestry-ioc/src/main/java/org/apache/tapestry5/ioc =&gt; commons/src/main/java/org/apache/tapestry5/commons}/ObjectProvider.java</code>. 
  */
 public class PackageAndArtifactChangeRefactorCommitParser implements FileRefactorCommitParser {
 

@@ -32,7 +32,7 @@ public class PackageAndArtifactChangeRefactorCommitParserTest
         Assert.assertTrue(optionalRefactor.isPresent(), "Line not detected as a change of package and artifact.");
         ClassRefactor refactor = optionalRefactor.get();
         Assert.assertEquals(refactor.getNewClassName(), "org.apache.tapestry5.commons.ObjectProvider");
-        Assert.assertEquals(refactor.getOldClassName(), "org.apache.tapestry5.commons.ObjectProvider");
+        Assert.assertEquals(refactor.getOldClassName(), "org.apache.tapestry5.ioc.ObjectProvider");
         Assert.assertEquals(refactor.getDestinationArtifact(), "commons");
         Assert.assertEquals(refactor.getSourceArtifact(), "tapestry-ioc");
     }

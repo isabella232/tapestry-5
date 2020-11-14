@@ -232,6 +232,9 @@ subprojects {
         }
         manifest {
         	attributes("Automatic-Module-Name": "org.apache.tapestry." + projectDir.getName().replaceAll("5", ""))
+        	if (projectDir.getName().equals("tapestry-version-migrator")) {
+        		attributes("Main-Class": "org.apache.tapestry5.versionmigrator.Main")
+        	}
         }
     }
 

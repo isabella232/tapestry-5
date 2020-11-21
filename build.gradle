@@ -225,13 +225,15 @@ subprojects {
     }
 
     jar {
-    	// println "JAR projectDir: " + projectDir.getName().replaceAll("5", "")
+    	// println "JAR projectDir: " + projectDir.getName().replaceAll("5", "").replaceAll("tapestry-", "");
         from(projectDir) {
             include "*.txt"
             into "META-INF"
         }
         manifest {
-        	attributes("Automatic-Module-Name": "org.apache.tapestry." + projectDir.getName().replaceAll("5", ""))
+        	attributes("Automatic-Module-Name": "org.apache.tapestry." + projectDir.getName()
+        		.replaceAll("tapestry5", "tapestry")
+        		.replaceAll("tapestry-", ""))
         	if (projectDir.getName().equals("tapestry-version-migrator")) {
         		attributes("Main-Class": "org.apache.tapestry5.versionmigrator.Main")
         	}

@@ -16,6 +16,8 @@ package org.apache.tapestry5.commons;
 
 import java.util.Set;
 
+import org.apache.tapestry5.commons.internal.util.MessagesImpl;
+
 /**
  * Provides access to a messages catalog, a set of properties files that provide localized messages for a particular
  * locale. The message catalog consists of keys and values and follows the semantics of a Java {@link
@@ -58,4 +60,17 @@ public interface Messages
      * @since 5.4
      */
     Set<String> getKeys();
+    
+    /**
+     * Finds the messages for a given Messages utility class. Strings the trailing "Messages" and replaces it with
+     * "Strings" to form the base path. Loads the bundle using the default locale, and the class' class loader.
+     *
+     * @param forClass
+     * @return Messages for the class
+     */
+    public static Messages forClass(Class forClass)
+    {
+        return MessagesImpl.forClass(forClass);
+    }
+
 }

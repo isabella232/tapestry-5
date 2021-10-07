@@ -112,7 +112,7 @@ import org.apache.tapestry5.http.Link;
 import org.apache.tapestry5.http.TapestryHttpSymbolConstants;
 import org.apache.tapestry5.http.internal.TapestryHttpInternalConstants;
 import org.apache.tapestry5.http.internal.TapestryHttpInternalSymbols;
-//import org.apache.tapestry5.http.modules.TapestryHttpModule;
+import org.apache.tapestry5.http.modules.TapestryHttpModule;
 import org.apache.tapestry5.http.services.ApplicationGlobals;
 import org.apache.tapestry5.http.services.ApplicationInitializer;
 import org.apache.tapestry5.http.services.ApplicationInitializerFilter;

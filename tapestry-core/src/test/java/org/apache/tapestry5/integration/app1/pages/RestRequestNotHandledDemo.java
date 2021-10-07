@@ -1,5 +1,3 @@
-// Copyright  2011 The Apache Software Foundation
-//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -11,18 +9,16 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+package org.apache.tapestry5.integration.app1.pages;
 
-package org.apache.tapestry5.internal.json;
+import org.apache.tapestry5.EventConstants;
+import org.apache.tapestry5.integration.app1.base.BaseRestDemoPage;
 
-import org.apache.tapestry5.commons.services.Coercion;
-import org.apache.tapestry5.json.JSONObject;
-
-/**
- * @since 5.3
- */
-public class StringToJSONObject  implements Coercion<String,JSONObject> {
-    @Override
-    public JSONObject coerce(String input) {
-        return input != null ? new JSONObject(input) : null;
+public class RestRequestNotHandledDemo extends BaseRestDemoPage {
+    
+    Object onHttpPut()
+    {
+        return createResponse(EventConstants.HTTP_PUT, "no body", "no parameter");
     }
+
 }

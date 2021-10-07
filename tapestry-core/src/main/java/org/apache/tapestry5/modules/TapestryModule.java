@@ -15,10 +15,8 @@ package org.apache.tapestry5.modules;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -31,10 +29,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.regex.Pattern;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tapestry5.Asset;
 import org.apache.tapestry5.BindingConstants;
@@ -118,29 +112,18 @@ import org.apache.tapestry5.http.Link;
 import org.apache.tapestry5.http.TapestryHttpSymbolConstants;
 import org.apache.tapestry5.http.internal.TapestryHttpInternalConstants;
 import org.apache.tapestry5.http.internal.TapestryHttpInternalSymbols;
-import org.apache.tapestry5.http.internal.gzip.GZipFilter;
-import org.apache.tapestry5.http.internal.services.ApplicationGlobalsImpl;
-import org.apache.tapestry5.http.internal.services.RequestGlobalsImpl;
-import org.apache.tapestry5.http.internal.services.RequestImpl;
-import org.apache.tapestry5.http.internal.services.ResponseImpl;
-import org.apache.tapestry5.http.internal.services.TapestrySessionFactory;
-import org.apache.tapestry5.http.internal.services.TapestrySessionFactoryImpl;
-import org.apache.tapestry5.http.modules.TapestryHttpModule;
+//import org.apache.tapestry5.http.modules.TapestryHttpModule;
 import org.apache.tapestry5.http.services.ApplicationGlobals;
 import org.apache.tapestry5.http.services.ApplicationInitializer;
 import org.apache.tapestry5.http.services.ApplicationInitializerFilter;
-import org.apache.tapestry5.http.services.BaseURLSource;
 import org.apache.tapestry5.http.services.Context;
 import org.apache.tapestry5.http.services.Dispatcher;
 import org.apache.tapestry5.http.services.HttpServletRequestFilter;
-import org.apache.tapestry5.http.services.HttpServletRequestHandler;
 import org.apache.tapestry5.http.services.Request;
 import org.apache.tapestry5.http.services.RequestFilter;
 import org.apache.tapestry5.http.services.RequestGlobals;
 import org.apache.tapestry5.http.services.RequestHandler;
 import org.apache.tapestry5.http.services.Response;
-import org.apache.tapestry5.http.services.ServletApplicationInitializer;
-import org.apache.tapestry5.http.services.ServletApplicationInitializerFilter;
 import org.apache.tapestry5.http.services.Session;
 import org.apache.tapestry5.internal.ComponentOverrideImpl;
 import org.apache.tapestry5.internal.DefaultNullFieldStrategy;
@@ -268,6 +251,7 @@ import org.apache.tapestry5.ioc.services.UpdateListener;
 import org.apache.tapestry5.ioc.services.UpdateListenerHub;
 import org.apache.tapestry5.json.JSONArray;
 import org.apache.tapestry5.json.JSONObject;
+import org.apache.tapestry5.json.modules.JSONModule;
 import org.apache.tapestry5.plastic.MethodAdvice;
 import org.apache.tapestry5.plastic.MethodDescription;
 import org.apache.tapestry5.plastic.MethodInvocation;
@@ -333,6 +317,7 @@ import org.apache.tapestry5.services.MarkupWriterFactory;
 import org.apache.tapestry5.services.MetaDataLocator;
 import org.apache.tapestry5.services.NullFieldStrategySource;
 import org.apache.tapestry5.services.ObjectRenderer;
+import org.apache.tapestry5.services.OpenApiDescriptionGenerator;
 import org.apache.tapestry5.services.PageDocumentGenerator;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.PageRenderRequestFilter;
@@ -399,7 +384,7 @@ import org.slf4j.Logger;
  */
 @Marker(Core.class)
 @ImportModule(
-        {InternalModule.class, AssetsModule.class, PageLoadModule.class, JavaScriptModule.class, CompatibilityModule.class, DashboardModule.class, TapestryHttpModule.class})
+        {InternalModule.class, AssetsModule.class, PageLoadModule.class, JavaScriptModule.class, CompatibilityModule.class, DashboardModule.class, TapestryHttpModule.class, JSONModule.class})
 public final class TapestryModule
 {
     private final PipelineBuilder pipelineBuilder;
@@ -2187,6 +2172,8 @@ public final class TapestryModule
 
         configuration.add(SymbolConstants.ENABLE_PAGELOADING_MASK, true);
         configuration.add(SymbolConstants.PRELOADER_MODE, PreloaderMode.PRODUCTION);
+        
+        configuration.add(SymbolConstants.OPENAPI_VERSION, "3.0.0");
     }
 
     /**
@@ -2727,6 +2714,18 @@ public final class TapestryModule
     {
         configuration.addInstance("Maven", MavenComponentLibraryInfoSource.class);
         configuration.add("TapestryCore", new TapestryCoreComponentLibraryInfoSource());
+    }
+    
+    public static OpenApiDescriptionGenerator buildOpenApiDocumentationGenerator(List<OpenApiDescriptionGenerator> configuration,
+            ChainBuilder chainBuilder) 
+    {
+        return chainBuilder.build(OpenApiDescriptionGenerator.class, configuration);
+    }
+
+    @Contribute(OpenApiDescriptionGenerator.class)
+    public static void addBuiltInOpenApiDocumentationGenerator(
+            OrderedConfiguration<OpenApiDescriptionGenerator> configuration) {
+        configuration.addInstance("Default", DefaultOpenApiDescriptionGenerator.class, "before:*");
     }
 
     private static final class TapestryCoreComponentLibraryInfoSource implements

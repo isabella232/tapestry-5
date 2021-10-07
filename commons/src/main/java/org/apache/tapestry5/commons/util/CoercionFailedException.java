@@ -1,4 +1,4 @@
-// Copyright  2011 The Apache Software Foundation
+// Copyright 2021 The Apache Software Foundation
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,17 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package org.apache.tapestry5.internal.json;
+package org.apache.tapestry5.commons.util;
 
+import org.apache.tapestry5.commons.internal.util.TapestryException;
 import org.apache.tapestry5.commons.services.Coercion;
-import org.apache.tapestry5.json.JSONObject;
 
 /**
- * @since 5.3
+ * Exception used when a {@link Coercion} throws an exception while
+ * trying to coerce a value. 
+ * 
+ * @since 5.8.0
  */
-public class StringToJSONObject  implements Coercion<String,JSONObject> {
-    @Override
-    public JSONObject coerce(String input) {
-        return input != null ? new JSONObject(input) : null;
+public class CoercionFailedException extends TapestryException
+{
+    
+    private static final long serialVersionUID = 1L;
+
+    public CoercionFailedException(String message, Throwable cause) 
+    {
+        super(message, cause);
     }
+    
 }

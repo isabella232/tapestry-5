@@ -181,6 +181,7 @@ public class AppModule
 
         configuration.add(D3_URL_SYMBOL, "cdnjs.cloudflare.com/ajax/libs/d3/3.0.0/d3.js");
         configuration.add(SymbolConstants.PRELOADER_MODE, PreloaderMode.ALWAYS);
+        configuration.add(SymbolConstants.OPENAPI_APPLICATION_VERSION, "1.2.3.4");
 //        configuration.add(SymbolConstants.ERROR_CSS_CLASS, "yyyy");
 //        configuration.add(SymbolConstants.DEFAULT_STYLESHEET, "classpath:/org/apache/tapestry5/integration/app1/app1.css");
     }

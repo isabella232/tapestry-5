@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tapestry5.SymbolConstants;
 import org.apache.tapestry5.annotations.OnEvent;
+import org.apache.tapestry5.annotations.RequestParameter;
 import org.apache.tapestry5.annotations.StaticActivationContextValue;
 import org.apache.tapestry5.commons.Messages;
 import org.apache.tapestry5.http.services.BaseURLSource;
@@ -42,7 +43,6 @@ import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.model.ComponentModel;
 import org.apache.tapestry5.runtime.Component;
 import org.apache.tapestry5.services.ComponentClassResolver;
-import org.apache.tapestry5.services.ComponentSource;
 import org.apache.tapestry5.services.OpenApiDescriptionGenerator;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.messages.ComponentMessagesSource;
@@ -78,8 +78,6 @@ public class DefaultOpenApiDescriptionGenerator implements OpenApiDescriptionGen
     
     final private PageRenderLinkSource pageRenderLinkSource;
     
-    final private ComponentSource componentSource;
-    
     final private static String KEY_PREFIX = "openapi.";
     
     public DefaultOpenApiDescriptionGenerator(
@@ -89,8 +87,7 @@ public class DefaultOpenApiDescriptionGenerator implements OpenApiDescriptionGen
             final ThreadLocale threadLocale,
             final PageSource pageSource,
             final ComponentClassResolver componentClassResolver,
-            final PageRenderLinkSource pageRenderLinkSource,
-            final ComponentSource componentSource) 
+            final PageRenderLinkSource pageRenderLinkSource) 
     {
         super();
         this.baseUrlSource = baseUrlSource;
@@ -100,7 +97,6 @@ public class DefaultOpenApiDescriptionGenerator implements OpenApiDescriptionGen
         this.pageSource = pageSource;
         this.componentClassResolver = componentClassResolver;
         this.pageRenderLinkSource = pageRenderLinkSource;
-        this.componentSource = componentSource;
         messages = new ThreadLocal<>();
         failedPageNames = new HashSet<>();
     }
@@ -161,7 +157,7 @@ public class DefaultOpenApiDescriptionGenerator implements OpenApiDescriptionGen
         JSONObject info = new JSONObject();
         putIfNotEmpty(info, "title", SymbolConstants.OPENAPI_TITLE);
         putIfNotEmpty(info, "description", SymbolConstants.OPENAPI_DESCRIPTION);
-        info.put("version", getValueFromSymbol(SymbolConstants.OPENAPI_APPLICATION_VERSION).orElse("?"));
+        info.put("version", getValueFromSymbolNoPrefix(SymbolConstants.OPENAPI_APPLICATION_VERSION).orElse("?"));
         documentation.put("info", info);
     }
     
@@ -250,28 +246,65 @@ public class DefaultOpenApiDescriptionGenerator implements OpenApiDescriptionGen
         else
         {
             
-            final JSONObject methodDocumentation = new JSONObject();
+            final JSONObject methodDescription = new JSONObject();
             
-            putIfNotEmpty(methodDocumentation, "summary", getValue(method, uri, httpMethod, "summary"));
-            putIfNotEmpty(methodDocumentation, "description", getValue(method, uri, httpMethod, "description"));
+            putIfNotEmpty(methodDescription, "summary", getValue(method, uri, httpMethod, "summary"));
+            putIfNotEmpty(methodDescription, "description", getValue(method, uri, httpMethod, "description"));
             
             JSONArray methodTags = new JSONArray();
             methodTags.add(tagName);
-            methodDocumentation.put("tags", methodTags);
+            methodDescription.put("tags", methodTags);
             
-            JSONObject responses = new JSONObject();
-            JSONObject defaultResponse = new JSONObject();
-            int statusCode = httpMethod.equals("post") ? 
-                    HttpServletResponse.SC_CREATED : HttpServletResponse.SC_OK;
-            putIfNotEmpty(defaultResponse, "description", getValue(method, uri, httpMethod, statusCode));
-            responses.put(String.valueOf(statusCode), defaultResponse);
+            processResponses(method, uri, httpMethod, methodDescription);
+
+            processParameters(method, uri, httpMethod, methodDescription);
             
-            methodDocumentation.put("responses", responses);
-            
-            path.put(httpMethod, methodDocumentation);
+            path.put(httpMethod, methodDescription);
         }
     }
 
+    private void processParameters(Method method, final String uri, final String httpMethod, final JSONObject methodDescription) {
+        JSONArray parametersAsJsonArray = new JSONArray();
+        for (Parameter parameter : method.getParameters())
+        {
+            final JSONObject parameterDescription = new JSONObject();
+            if (!isIgnored(parameter) && 
+                    parameter.getAnnotation(StaticActivationContextValue.class) == null)
+            {
+                parameterDescription.put("in", "path");
+            }
+            else if (parameter.getAnnotation(RequestParameter.class) != null)
+            {
+                parameterDescription.put("in", "query");
+            }
+            if (!parameterDescription.isEmpty())
+            {
+                Optional<String> parameterName = getValue(method, uri, httpMethod, parameter, "name");
+                parameterDescription.put("name", parameterName.orElse(parameter.getName()));
+                getValue(method, uri, httpMethod, parameter, "description")
+                    .ifPresent((v) -> parameterDescription.put("description", v));
+                
+                parametersAsJsonArray.add(parameterDescription);
+            }
+        }
+        
+        if (!parametersAsJsonArray.isEmpty())
+        {
+            methodDescription.put("parameters", parametersAsJsonArray);
+        }
+    }
+
+    private void processResponses(Method method, final String uri, final String httpMethod, final JSONObject methodDescription) {
+        JSONObject responses = new JSONObject();
+        JSONObject defaultResponse = new JSONObject();
+        int statusCode = httpMethod.equals("post") ? 
+                HttpServletResponse.SC_CREATED : HttpServletResponse.SC_OK;
+        putIfNotEmpty(defaultResponse, "description", getValue(method, uri, httpMethod, statusCode));
+        responses.put(String.valueOf(statusCode), defaultResponse);
+
+        methodDescription.put("responses", responses);
+    }
+    
     private void addElementsIfNotPresent(JSONArray accumulator, JSONArray array) 
     {
         if (array != null)
@@ -317,21 +350,31 @@ public class DefaultOpenApiDescriptionGenerator implements OpenApiDescriptionGen
     {
         return getValue(method, path + "." + httpMethod + "." + property, true);
     }
+
+    public Optional<String> getValue(Method method, String path, String httpMethod, Parameter parameter, String property) 
+    {
+        return getValue(method, path, httpMethod, "parameter." + parameter.getName(), property);
+    }
     
     public Optional<String> getValue(Method method, String path, String httpMethod, int statusCode) 
     {
-        Optional<String> value = getValue(method, path + "." + httpMethod + ".response." + String.valueOf(statusCode), true);
+        return getValue(method, path, httpMethod, "response", String.valueOf(statusCode));
+    }
+
+    public Optional<String> getValue(Method method, String path, String httpMethod, String middle, String propertyName) 
+    {
+        Optional<String> value = getValue(method, path + "." + httpMethod + "." + middle + "." + String.valueOf(propertyName), true);
         if (!value.isPresent())
         {
-            value = getValue(method, httpMethod + ".response." + String.valueOf(statusCode), false);
+            value = getValue(method, httpMethod + "." + middle + "." + propertyName, false);
         }
         if (!value.isPresent())
         {
-            value = getValue(method, "response." + String.valueOf(statusCode), false);
+            value = getValue(method, middle + "." + propertyName, false);
         }
         if (!value.isPresent())
         {
-            value = getValue("response." + String.valueOf(statusCode));
+            value = getValue(middle + "." + propertyName);
         }
         return value;
     }
@@ -490,8 +533,11 @@ public class DefaultOpenApiDescriptionGenerator implements OpenApiDescriptionGen
     
     private Optional<String> getValueFromSymbol(String key)
     {
+        return getValueFromSymbolNoPrefix("tapestry." + key);
+    }
+
+    private Optional<String> getValueFromSymbolNoPrefix(final String symbol) {
         String value;
-        final String symbol = "tapestry." + key;
         logSymbolLookup(symbol);
         try
         {

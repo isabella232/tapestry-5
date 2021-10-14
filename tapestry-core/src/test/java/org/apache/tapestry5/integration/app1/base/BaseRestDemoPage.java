@@ -13,11 +13,12 @@ package org.apache.tapestry5.integration.app1.base;
 
 import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.annotations.OnEvent;
+import org.apache.tapestry5.annotations.RequestParameter;
 import org.apache.tapestry5.annotations.StaticActivationContextValue;
 import org.apache.tapestry5.http.services.Response;
 import org.apache.tapestry5.util.TextStreamResponse;
 
-public class BaseRestDemoPage {
+public class BaseRestDemoPage extends AbstractRestDemoPage {
     
     public static final String EXTRA_HTTP_HEADER = "X-Event";
     
@@ -38,9 +39,19 @@ public class BaseRestDemoPage {
     }
     
     @OnEvent(EventConstants.HTTP_GET)
-    protected Object superclassEndpoint(@StaticActivationContextValue("superclassEndpoint") String parameter)
+    protected Object superclassEndpoint(@StaticActivationContextValue("superclassEndpoint") String pathParameter)
     {
-        return new TextStreamResponse("text/plain", parameter);
+        return new TextStreamResponse("text/plain", pathParameter);
+    }
+    
+    @OnEvent(EventConstants.HTTP_GET)
+    protected Object withParameters(
+            @StaticActivationContextValue("parametersTest") String staticParameter,
+            @RequestParameter(value = "fromQueryString", allowBlank = true) String queryParameter,
+            String pathParameter)
+    {
+        return new TextStreamResponse("text/plain", 
+                String.join(":", staticParameter, pathParameter, queryParameter));
     }
     
 }

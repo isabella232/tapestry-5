@@ -648,7 +648,7 @@ public class SymbolConstants
     
     /**
      * Defines the OpenAPI version to be used in the generated OpenAPI description.
-     * Default value is <code>3.0.0<code>.
+     * Default value is <code>3.0.0</code>.
      * @see DefaultOpenApiDescriptionGenerator
      * @see OpenApiDescriptionGenerator
      * @since 5.8.0
@@ -680,5 +680,25 @@ public class SymbolConstants
      * @since 5.8.0
      */
     public static final String OPENAPI_APPLICATION_VERSION = "tapestry.openapi-application-version";
+
+    /**
+     * Defines whether the OpenAPI description file of this application's REST endpoints should be 
+     * published or not. The default value is <code>false</code>.
+     * @see OpenApiDescriptionGenerator
+     * @see #OPENAPI_DESCRIPTION_PATH
+     * @since 5.8.0
+     */
+    public static final String PUBLISH_OPENAPI_DEFINITON = "tapestry.publish-openapi-description";
+
+    /**
+     * Defines the path the OpenAPI description file of this application's REST endpoints will be
+     * published. It should start with a slash. The default value is <code>openapi.json</code>.
+     * Default value is <code>/openapi.json</code>.
+     * The description will only be published if {{@link #PUBLISH_OPENAPI_DEFINITON} is set to
+     * <code>true</code>.
+     * @see OpenApiDescriptionGenerator
+     * @since 5.8.0
+     */
+    public static final String OPENAPI_DESCRIPTION_PATH = "tapestry.openapi-description-path";
 
 }

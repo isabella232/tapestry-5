@@ -1677,8 +1677,15 @@ public final class TapestryModule
      * {@link ComponentEventRequestHandler}</dd>
      * </dl>
      */
-    public static void contributeMasterDispatcher(OrderedConfiguration<Dispatcher> configuration)
+    public static void contributeMasterDispatcher(OrderedConfiguration<Dispatcher> configuration,
+            @Symbol(SymbolConstants.PUBLISH_OPENAPI_DEFINITON) final boolean publishOpenApiDefinition)
     {
+        
+        if (publishOpenApiDefinition)
+        {
+            configuration.addInstance("OpenAPI", OpenApiDescriptionDispatcher.class, "before:PageRender", "before:ComponentEvent");
+        }
+        
         // Looks for the root path and renders the start page. This is
         // maintained for compatibility
         // with earlier versions of Tapestry 5, it is recommended that an Index
@@ -2174,6 +2181,8 @@ public final class TapestryModule
         configuration.add(SymbolConstants.PRELOADER_MODE, PreloaderMode.PRODUCTION);
         
         configuration.add(SymbolConstants.OPENAPI_VERSION, "3.0.0");
+        configuration.add(SymbolConstants.PUBLISH_OPENAPI_DEFINITON, "false");
+        configuration.add(SymbolConstants.OPENAPI_DESCRIPTION_PATH, "/openapi.json");
     }
 
     /**

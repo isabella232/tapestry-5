@@ -31,7 +31,7 @@ public interface HttpRequestBodyConverter
      * Converts the body of this request. If this implementation cannot handle this request,
      * probably by not handling its content type, it should return <code>null</code>.
      * In addition, if the request body is empty, this method should also return
-     * <code>null<code>.
+     * <code>null</code>.
      * @param request an {@linkplain HttpServletRequest}.
      * @param type the target type.
      * @return an object of the target type or <code>null</code>.
